@@ -1,2 +1,39 @@
 搭建thereaddoc文档
 ===================================
+
+分享一个.readthedocs.yaml文件，解决在thereaddoc站点构建时提示相关包不存在。
+
+.. code:: yaml
+
+    # .readthedocs.yaml
+    # Read the Docs configuration file
+    # See https://docs.readthedocs.io/en/stable/config-file/v2.html for details
+
+    # Required
+    version: 2
+
+    # Set the OS, Python version and other tools you might need
+    build:
+    os: ubuntu-22.04
+    tools:
+        python: "3.12"
+        # You can also specify other tool versions:
+        # nodejs: "19"
+        # rust: "1.64"
+        # golang: "1.19"
+    jobs:
+        post_create_environment:
+            - python -m pip install sphinx_rtd_theme recommonmark sphinx_markdown_tables
+
+    # Build documentation in the "docs/" directory with Sphinx
+    sphinx:
+    configuration: docs/source/conf.py
+
+    # Optionally build your docs in additional formats such as PDF and ePub
+    # formats:
+    #    - pdf
+    #    - epub
+
+    # Optional but recommended, declare the Python requirements required
+    # to build your documentation
+    # See https://docs.readthedocs.io/en/stable/guides/reproducible-builds.html
